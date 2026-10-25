@@ -283,28 +283,95 @@ if (!reduce && matchMedia("(pointer: fine)").matches) {
   addEventListener("touchmove", move, { passive: true });
 })();
 
-// ===== Signature / Chanson =====
+// ===== Signature / Chanson (audio réel en boucle) =====
 const playBtn = document.getElementById("playChanson");
 const lyrics = document.getElementById("chansonLyrics");
 const icon = document.getElementById("chansonIcon");
 
 if (playBtn && lyrics) {
   let playing = false;
+  let audioCtx = null;
+  let masterGain = null;
+  let isLooping = false;
+  let nextNoteTime = 0;
+  let timerID = null;
+
+  // Mélodie douce et professionnelle (Do majeur – calme et propre)
+  const melody = [
+    { note: 261.63, dur: 0.35 }, // C4
+    { note: 329.63, dur: 0.35 }, // E4
+    { note: 392.00, dur: 0.45 }, // G4
+    { note: 523.25, dur: 0.55 }, // C5
+    { note: 392.00, dur: 0.35 }, // G4
+    { note: 329.63, dur: 0.35 }, // E4
+    { note: 293.66, dur: 0.40 }, // D4
+    { note: 261.63, dur: 0.70 }, // C4
+  ];
+
+  function playTone(freq, start, duration) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = freq;
+
+    // Enveloppe douce
+    gain.gain.setValueAtTime(0, start);
+    gain.gain.linearRampToValueAtTime(0.18, start + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+
+    osc.connect(gain);
+    gain.connect(masterGain);
+    osc.start(start);
+    osc.stop(start + duration + 0.05);
+  }
+
+  function scheduler() {
+    while (nextNoteTime < audioCtx.currentTime + 0.15) {
+      let time = nextNoteTime;
+      melody.forEach((n, i) => {
+        playTone(n.note, time, n.dur * 0.9);
+        time += n.dur;
+      });
+      // Petite pause entre les boucles
+      nextNoteTime = time + 0.45;
+    }
+    timerID = setTimeout(scheduler, 40);
+  }
+
+  function startAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0.7;
+      masterGain.connect(audioCtx.destination);
+    }
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    nextNoteTime = audioCtx.currentTime + 0.05;
+    isLooping = true;
+    scheduler();
+  }
+
+  function stopAudio() {
+    isLooping = false;
+    clearTimeout(timerID);
+    if (masterGain) {
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+      setTimeout(() => {
+        if (masterGain) masterGain.gain.value = 0.7;
+      }, 350);
+    }
+  }
+
   playBtn.addEventListener("click", () => {
     playing = !playing;
     playBtn.classList.toggle("is-playing", playing);
     lyrics.classList.toggle("is-visible", playing);
     icon.textContent = playing ? "❚❚" : "▶";
-    
-    // Auto-reset after animation
+
     if (playing) {
-      setTimeout(() => {
-        if (playing) {
-          playing = false;
-          playBtn.classList.remove("is-playing");
-          icon.textContent = "▶";
-        }
-      }, 8000);
+      startAudio();
+    } else {
+      stopAudio();
     }
   });
 }
