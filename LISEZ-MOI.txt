@@ -1,0 +1,60 @@
+MV Propreté & Multiservices – Site vitrine premium (HTML / CSS / JS vanilla)
+
+═══════════════════════════════════════════════════════════════
+COMMENT VOIR LE SITE EN LOCAL
+═══════════════════════════════════════════════════════════════
+Ouvrez simplement le fichier index.html dans votre navigateur
+(Chrome, Firefox, Safari, Edge).
+
+═══════════════════════════════════════════════════════════════
+PUBLICATION GRATUITE & PERMANENTE (recommandé)
+═══════════════════════════════════════════════════════════════
+
+Option 1 – GitHub Pages (le plus simple et durable, 100 % gratuit)
+
+1. Créez un compte gratuit sur https://github.com (si vous n’en avez pas)
+2. Créez un nouveau dépôt (repository) public nommé par exemple : mv-proprete
+3. Uploadez tous les fichiers du dossier site/ (index.html, style.css, script.js + dossier images/)
+4. Allez dans Settings → Pages → Source : « Deploy from a branch »
+5. Choisissez la branche main et le dossier / (root) → Save
+6. Après 1-2 minutes, votre site sera en ligne à l’adresse :
+   https://VOTRE-PSEUDO.github.io/mv-proprete/
+
+Lien permanent, HTTPS sécurisé, gratuit à vie.
+
+Option 2 – Netlify Drop (encore plus rapide, sans compte au début)
+
+1. Allez sur https://app.netlify.com/drop
+2. Glissez-déposez le dossier « site » entier
+3. Vous obtenez immédiatement un lien du type https://random-name.netlify.app
+4. Pour le rendre permanent et personnaliser le nom, créez un compte gratuit Netlify
+
+Option 3 – Cloudflare Pages (également excellent et gratuit)
+
+Même principe : compte gratuit → upload du dossier → lien permanent.
+
+═══════════════════════════════════════════════════════════════
+AMÉLIORATIONS APPORTÉES
+═══════════════════════════════════════════════════════════════
+• Design system premium (couleurs, typo, ombres, rayons)
+• Preloader élégant
+• Animations d’apparition au scroll raffinées
+• Compteurs animés (stats)
+• Boutons magnétiques (desktop)
+• Hover avancés sur les cartes services (shine + scale)
+• Section Confiance / témoignages + chiffres
+• Formulaire redesigné avec meilleurs états focus
+• Menu mobile animé (burger → croix)
+• Sticky CTA mobile
+• Meta Open Graph + favicon SVG
+• Respect strict de prefers-reduced-motion
+• Performance : lazy-loading images, will-change, transform3d
+
+═══════════════════════════════════════════════════════════════
+AVANT MISE EN LIGNE OFFICIELLE
+═══════════════════════════════════════════════════════════════
+• Remplacer le formulaire mailto par Formspree (gratuit) ou un backend
+• Ajouter page Mentions légales + Politique de confidentialité (RGPD)
+• Vérifier les photos (certaines générées par IA)
+
+Contact : mvpm.accueil@gmail.com · 06 25 37 80 68
