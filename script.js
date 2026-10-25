@@ -282,3 +282,29 @@ if (!reduce && matchMedia("(pointer: fine)").matches) {
   addEventListener("pointermove", move, { passive: true });
   addEventListener("touchmove", move, { passive: true });
 })();
+
+// ===== Signature / Chanson =====
+const playBtn = document.getElementById("playChanson");
+const lyrics = document.getElementById("chansonLyrics");
+const icon = document.getElementById("chansonIcon");
+
+if (playBtn && lyrics) {
+  let playing = false;
+  playBtn.addEventListener("click", () => {
+    playing = !playing;
+    playBtn.classList.toggle("is-playing", playing);
+    lyrics.classList.toggle("is-visible", playing);
+    icon.textContent = playing ? "❚❚" : "▶";
+    
+    // Auto-reset after animation
+    if (playing) {
+      setTimeout(() => {
+        if (playing) {
+          playing = false;
+          playBtn.classList.remove("is-playing");
+          icon.textContent = "▶";
+        }
+      }, 8000);
+    }
+  });
+}
